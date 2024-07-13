@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from 'cors';
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
 
@@ -15,8 +16,9 @@ mongoose
     console.log(err);
   });
 
-//express config
+  //express config
 const app = express();
+app.use(cors());
 //middle ware allowing to use json data
 app.use(express.json());
 
