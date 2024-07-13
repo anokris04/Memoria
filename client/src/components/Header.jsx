@@ -7,7 +7,7 @@ import {FaMoon} from 'react-icons/fa'
 const Header = () => {
     const path = useLocation().pathname;
   return (
-    <Navbar className='border-b-2'>
+    <Navbar className='border-b-2 border-gray-300 bg-amber-50'>
         <Link to="/" className='self-center text-slate-950 text-sm sm:text-2xl font-semibold dark:text-white'>
             <span className='px-2 py-2 rounded-lg bg-gradient-to-r from-red-600 via-purple-500 to-blue-600 text-white'>Memoria</span>
         </Link>
