@@ -6,10 +6,11 @@ import SignUp from "./pages/SignUp";
 import Project from "./pages/Project";
 import Home from "./pages/Home";
 import Header from "./components/Header";
+import FooterComp from "./components/FooterComp";
 
 const App = () => {
   return (
-    <div className="bg-primary h-full pb-60">
+    <div className="bg-primary h-full">
       <BrowserRouter>
         <Header />
         <Routes>
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/project" element={<Project />} />
         </Routes>
+        <FooterComp/>
       </BrowserRouter>
     </div>
   );
