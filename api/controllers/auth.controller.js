@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "./error.js";
+import jwt from 'jsonwebtoken';
 
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -30,3 +31,34 @@ export const signup = async (req, res, next) => {
     next(error);
   }
 };
+
+export const signin = async (req, res, next) => {
+  const { email, password } = req.body;
+  if (
+    !email ||
+    !password ||
+    email === "" ||
+    password === ""
+  ) {
+    next(errorHandler(400, "All fields are required"));
+  }
+  try {
+    const validUser = await User.findOne({email});
+    if(!validUser){
+      next(errorHandler(404, 'User Not Found'))
+    }
+    const passwordValid = bcryptjs.compareSync(password, validUser.password);
+    if(!passwordValid){
+      next(errorHandler(401, 'Wrong Credentials'))
+    }
+    const token = jwt.sign({id: validUser._id}, process.env.JWT_SECRET);
+    
+    //for hiding the password in going back in response to client
+    const { password:pass, ...rest} = validUser._doc;
+    res.status(200).cookie('access_token', token, {
+      httpOnly: true
+    }).json(rest);
+  } catch (error) {
+    next(error);
+  }
+}
