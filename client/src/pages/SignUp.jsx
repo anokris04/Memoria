@@ -41,7 +41,7 @@ const SignUp = () => {
     }
   };
   return (
-    <div className="h-full mt-20 flex justify-center">
+    <div className="h-full my-32 flex justify-center">
       <div className="w-[60%] bg-amber-50 rounded-2xl overflow-hidden border-2 border-gray-300">
         <div className="flex flex-col items-center p-10">
           <Link to="/" className="text-slate-950 text-5xl dark:text-white">

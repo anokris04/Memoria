@@ -10,17 +10,19 @@ import FooterComp from "./components/FooterComp";
 
 const App = () => {
   return (
-    <div className="bg-primary h-full">
+    <div className="flex flex-col min-h-screen">
       <BrowserRouter>
         <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/sign-in" element={<SignIn />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/project" element={<Project />} />
-        </Routes>
-        <FooterComp/>
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/project" element={<Project />} />
+          </Routes>
+        </main>
+        <FooterComp />
       </BrowserRouter>
     </div>
   );

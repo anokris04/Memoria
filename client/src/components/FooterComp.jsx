@@ -7,7 +7,7 @@ const FooterComp = () => {
   return (
     <Footer
       container
-      className="border border-t-4 border-gray-300 bg-amber-50 mt-20"
+      className="border border-t-4 border-gray-300 bg-amber-50"
     >
       <div className="w-full max-w-5xl mx-auto">
         <div className="flex flex-col sm:flex-row justify-around w-full">
