@@ -21,7 +21,7 @@ const Header = () => {
     <Navbar className="border-b-4 border-gray-300 bg-amber-50">
       <Link
         to="/"
-        className="self-center text-slate-950 text-sm sm:text-2xl font-semibold dark:text-white"
+        className="self-center text-slate-950 text-sm sm:text-2xl font-semibold"
       >
         <span className="px-2 py-2 rounded-lg bg-gradient-to-r from-red-600 via-purple-500 to-blue-600 text-white">
           Memoria
@@ -39,9 +39,7 @@ const Header = () => {
         <AiOutlineSearch />
       </Button>
       <div className="flex gap-2 md:order-2">
-        <Button className="w-12 h-10 hidden sm:inline bg-blue-600" pill>
-          <FaMoon />
-        </Button>
+    
         {currentUser ? (
           <Dropdown
             arrowIcon={false}
