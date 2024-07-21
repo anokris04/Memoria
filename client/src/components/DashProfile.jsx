@@ -19,6 +19,7 @@ import {
 } from "../redux/user/userSlice.js";
 import { useDispatch } from "react-redux";
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
+import { Link } from "react-router-dom";
 
 const DashProfile = () => {
   const { currentUser, error } = useSelector((state) => state.user);
@@ -216,6 +217,11 @@ const DashProfile = () => {
         >
           Update
         </Button>
+        <Link to={'/create-post'}>
+          <Button type="button" className="w-full" gradientDuoTone='pinkToOrange'>
+            Create a Post
+          </Button>
+        </Link>
       </form>
       <div className="mt-1 flex justify-between mx-2">
         <span
