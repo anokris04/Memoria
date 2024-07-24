@@ -27,7 +27,8 @@ export default function DashPosts() {
         console.log(error.message);
       }
     };
-})
+    fetchPosts();
+}, [currentUser._id])
 
   const handleShowMore = async () => {
     const startIndex = userPosts.length;
@@ -70,7 +71,7 @@ export default function DashPosts() {
   };
 
   return (
-    <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500'>
+    <div className='table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 '>
       {userPosts.length > 0 ? (
         <>
           <Table hoverable className='shadow-md'>
@@ -85,9 +86,9 @@ export default function DashPosts() {
               </Table.HeadCell>
             </Table.Head>
             {userPosts.map((post) => (
-              <Table.Body className='divide-y'>
-                <Table.Row className='bg-white dark:border-gray-700 dark:bg-gray-800'>
-                  <Table.Cell>
+              <Table.Body key={post._id} className='divide-y'>
+              <Table.Row key={post._id} className='bg-white'>
+                <Table.Cell>
                     {new Date(post.updatedAt).toLocaleDateString()}
                   </Table.Cell>
                   <Table.Cell>
