@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import About from "./pages/About";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Project from "./pages/Project";
 import Home from "./pages/Home";
 import Header from "./components/Header";
 import FooterComp from "./components/FooterComp";
@@ -11,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import CreatePost from "./pages/CreatePost";
 import UpdatePost from "./pages/UpdatePost";
+import PostPage from './pages/PostPage';
 
 const App = () => {
   return (
@@ -18,21 +18,18 @@ const App = () => {
       <BrowserRouter>
         <Header />
         <div className="min-h-screen">
-          
-        <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
-            <Route path="/project" element={<Project />} />
             <Route element={<PrivateRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/create-post" element={<CreatePost/>} />
               <Route path="/update-post/:postId" element={<UpdatePost/>} />
             </Route>
+            <Route path="/post/:postSlug" element={<PostPage />} />
           </Routes>
-        </main>
         </div>
         <FooterComp />
       </BrowserRouter>

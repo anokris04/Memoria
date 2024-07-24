@@ -97,11 +97,6 @@ const Header = () => {
             About
           </Link>
         </Navbar.Link>
-        <Navbar.Link active={path === "/project"} as={"div"}>
-          <Link to="/project" className="text-base">
-            Projects
-          </Link>
-        </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );
