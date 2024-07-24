@@ -44,7 +44,7 @@ const DashSidebar = () => {
   return (
     <Sidebar className="w-full md:w-56 bg-amber-50 !important">
       <Sidebar.Items>
-        <Sidebar.ItemGroup>
+        <Sidebar.ItemGroup className="flex flex-col gap-1">
           <Link to="/dashboard?tab=profile">
             <Sidebar.Item
               active={tab === "profile"}
