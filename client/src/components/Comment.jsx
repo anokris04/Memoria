@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { Button, Textarea } from 'flowbite-react';
 
 
+
 export default function Comment({ comment, onLike, onEdit, onDelete }) {
   const [user, setUser] = useState({});
   const [isEditing, setIsEditing] = useState(false);
@@ -23,7 +24,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
       }
     };
     getUser();
-  }, [comment]);
+  }, [comment.userId]);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -78,7 +79,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
               <Button
                 type='button'
                 size='sm'
-                gradientDuoTone='purpleToBlue'
+                className='bg-purple-500'
                 onClick={handleSave}
               >
                 Save
@@ -86,8 +87,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
               <Button
                 type='button'
                 size='sm'
-                gradientDuoTone='purpleToBlue'
-                outline
+                className='bg-gray-500'
                 onClick={() => setIsEditing(false)}
               >
                 Cancel
