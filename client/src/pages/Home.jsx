@@ -5,9 +5,7 @@ import { FaTwitter, FaFacebook, FaInstagram } from 'react-icons/fa';
 const HomePage = () => {
 
 
-  const signupRef = useRef(null); // Create a ref for the signup section
-
-  // Function to scroll to the signup section
+  const signupRef = useRef(null); 
   const scrollToSignup = () => {
     if (signupRef.current) {
       signupRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -22,11 +20,11 @@ const HomePage = () => {
         <div className="container mx-auto text-center">
           <h1 className="text-4xl font-bold mb-4">Welcome to Memoria</h1>
           <p className="text-lg mb-6">Your Personal Memory Lane</p>
-          {/* <Link to="/sign-up"> */}
+          
             <button onClick={scrollToSignup} className="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded">
               Get Started
             </button>
-          {/* </Link> */}
+          
         </div>
       </section>
 
