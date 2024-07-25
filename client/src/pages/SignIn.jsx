@@ -45,7 +45,7 @@ const SignIn = () => {
       <div className="w-[60%] bg-amber-50 rounded-2xl overflow-hidden border-2 border-gray-300">
         <div className="flex flex-col items-center p-10">
           <Link to="/" className="text-slate-950 text-5xl dark:text-white">
-            <span className="px-5 py-1 font-bold rounded-lg bg-gradient-to-r from-red-600 via-purple-500 to-blue-600 text-transparent bg-clip-text onChange=">
+            <span className="px-5 py-1 font-bold rounded-lg bg-gradient-to-r from-red-600 via-purple-500 to-blue-600 text-transparent bg-clip-text ">
               Memoria
             </span>
           </Link>
