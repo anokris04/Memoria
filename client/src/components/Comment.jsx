@@ -11,6 +11,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
   const { currentUser } = useSelector((state) => state.user);
+  
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -20,7 +21,6 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
         }
         const res = await fetch(`/api/user/${comment.userId}`);
         if (res.status === 404) {
-          // User not found, set to "deleted user"
           setUser({ username: "deleted_user", profilePicture: "" });
           return;
         }

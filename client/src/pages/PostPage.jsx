@@ -3,13 +3,14 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import CommentSection from '../components/CommentSection';
 import PostCard from '../components/PostCard';
+import { useSelector } from 'react-redux';
 
 export default function PostPage() {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
-
+  const { currentUser } = useSelector((state) => state.user);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -55,8 +56,6 @@ export default function PostPage() {
     fetchPost();
   }, [postSlug]);
 
-
- 
   return (
     <main className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
       {loading? (
@@ -70,6 +69,7 @@ export default function PostPage() {
               <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl">
                 {post.title}
               </h1>
+              <h2 className="text-sm mt-2 p-2 text-center font-serif max-w-xl mx-auto lg:text-base">@{post.username}</h2>
               <Link
                 to={`/search?category=${post.category}`}
                 className="self-center mt-5"

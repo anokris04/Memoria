@@ -1,5 +1,6 @@
 import Post from "../models/post.modal.js";
 import { errorHandler } from "../utils/error.js";
+import User from '../models/user.model.js'
 
 export const create = async (req, res, next) => {
   if (!req.body.title || !req.body.content) {
@@ -10,10 +11,17 @@ export const create = async (req, res, next) => {
     .join("-")
     .toLowerCase()
     .replace(/[^a-zA-Z0-9-]/g, " ");
+    
+  const user = await User.findById(req.user.id); // Fetch the user from the database
+  if (!user) {
+    return next(errorHandler(404, "User not found"));
+  }
+  
   const newPost = new Post({
     ...req.body,
     slug,
     userId: req.user.id,
+    username: user.username, // Use the fetched user's username
   });
   try {
     const savedPost = await newPost.save();
@@ -22,6 +30,7 @@ export const create = async (req, res, next) => {
     next(error);
   }
 };
+
 export const getallposts = async (req, res, next) => {
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
