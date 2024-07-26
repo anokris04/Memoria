@@ -2,12 +2,34 @@ import { Button, Spinner } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import CommentSection from '../components/CommentSection';
+import PostCard from '../components/PostCard';
 
 export default function PostPage() {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
+
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const res = await fetch("/api/post/getallposts");
+        const data = await res.json();
+        if (res.ok) {
+          // Filter out the post with the current slug
+          const filteredPosts = data.posts.filter(post => post.slug !== postSlug);
+          setPosts(filteredPosts);
+        } else {
+          setError(true);
+        }
+      } catch (error) {
+        setError(true);
+      }
+    };
+    fetchPosts();
+  }, [postSlug]);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -75,6 +97,26 @@ export default function PostPage() {
           )}
         </>
       )}
+      <div className="max-w-6xl mx-auto p-3 flex flex-col gap-4 py-4">
+        {posts && posts.length > 0 && (
+          <div className="flex flex-col gap-4">
+            <h1 className="text-2xl font-bold text-center">Recent Posts</h1>
+            <div className="container mx-auto px-4 py-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {posts.map((post) => (
+                  <PostCard key={post.id} post={post} />
+                ))}
+              </div>
+            </div>
+            <Link
+              to={"/search"}
+              className="text-lg text-teal-500 hover:underline text-center"
+            >
+              View all posts
+            </Link>
+          </div>
+        )}
+      </div>
     </main>
   );
  };

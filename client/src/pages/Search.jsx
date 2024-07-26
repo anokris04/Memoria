@@ -1,7 +1,7 @@
 import { Button, Select, TextInput } from 'flowbite-react';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import PostCard from '../components/PostCard';
 
 export default function Search() {
   const [sidebarData, setSidebarData] = useState({
@@ -36,7 +36,7 @@ export default function Search() {
     const fetchPosts = async () => {
       setLoading(true);
       const searchQuery = urlParams.toString();
-      const res = await fetch(`/api/post/getposts?${searchQuery}`);
+      const res = await fetch(`/api/post/getallposts?${searchQuery}`);
       if (!res.ok) {
         setLoading(false);
         return;
@@ -117,26 +117,21 @@ export default function Search() {
             />
           </div>
           <div className='flex items-center gap-2'>
-            <label className='font-semibold'>Sort:</label>
-            <Select onChange={handleChange} value={sidebarData.sort} id='sort'>
-              <option value='desc'>Latest</option>
-              <option value='asc'>Oldest</option>
-            </Select>
-          </div>
-          <div className='flex items-center gap-2'>
             <label className='font-semibold'>Category:</label>
             <Select
               onChange={handleChange}
               value={sidebarData.category}
               id='category'
             >
-              <option value='uncategorized'>Uncategorized</option>
-              <option value='reactjs'>React.js</option>
-              <option value='nextjs'>Next.js</option>
-              <option value='javascript'>JavaScript</option>
+            <option value="uncategorized">Select a Category</option>
+            <option value="adventure">Adventure</option>
+            <option value="culture">Culture</option>
+            <option value="relaxation">Relaxation</option>
+            <option value="wildlife">Wildlife</option>
+            <option value="urban">Urban</option>
             </Select>
           </div>
-          <Button type='submit' outline gradientDuoTone='purpleToPink'>
+          <Button type='submit'className='bg-purple-500'>
             Apply Filters
           </Button>
         </form>
@@ -150,6 +145,21 @@ export default function Search() {
             <p className='text-xl text-gray-500'>No posts found.</p>
           )}
           {loading && <p className='text-xl text-gray-500'>Loading...</p>}
+          <div className="container mx-auto px-4 py-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {!loading &&
+                posts &&
+                posts.map((post) => <PostCard key={post._id} post={post} />)}
+            </div>
+          </div>
+          {showMore && (
+            <button
+              onClick={handleShowMore}
+              className='text-purple-500 text-lg hover:underline p-7 w-full'
+            >
+              Show More
+            </button>
+          )}
         </div>
       </div>
     </div>
