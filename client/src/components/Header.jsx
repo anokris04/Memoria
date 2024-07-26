@@ -8,8 +8,8 @@ import {
   TextInput,
   Avatar
 } from "flowbite-react";
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,8 +17,19 @@ import { signoutSuccess } from "../redux/user/userSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const path = useLocation().pathname;
   const { currentUser } = useSelector((state) => state.user);
+  const [searchTerm, setSearchTerm ] = useState('');
+  const location = useLocation();
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    if(searchTermFromUrl){
+      setSearchTerm(searchTermFromUrl);
+    }
+  },[location.search])
 
   const handleSignout = async () => {
     try {
@@ -36,6 +47,14 @@ const Header = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set('searchTerm', searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
   return (
     <Navbar className="border-b-4 border-gray-300 bg-amber-50">
       <Link
@@ -46,12 +65,14 @@ const Header = () => {
           Memoria
         </span>
       </Link>
-      <form>
+      <form onSubmit={handleSubmit}>
         <TextInput
           type="text"
           placeholder="Search"
           rightIcon={AiOutlineSearch}
           className="hidden md:inline"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
       </form>
       <Button className="w-12 h-10 bg-purple-500 md:hidden" pill>

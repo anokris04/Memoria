@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaTwitter, FaFacebook, FaInstagram } from "react-icons/fa";
 import PostCard from "../components/PostCard";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
   const signupRef = useRef(null);
   const [posts, setPosts] = useState([]);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -22,6 +24,7 @@ const HomePage = () => {
     }
   };
 
+  
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Hero Section */}
@@ -31,13 +34,14 @@ const HomePage = () => {
             Welcome to Memoria
           </h1>
           <p className="text-lg mb-6">Your Personal Memory Lane</p>
-
-          <button
-            onClick={scrollToSignup}
-            className="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded"
-          >
-            Get Started
-          </button>
+          {!user.currentUser && (
+            <button
+              onClick={scrollToSignup}
+              className="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded"
+            >
+              Get Started
+            </button>
+          )}
         </div>
       </section>
 
@@ -81,20 +85,22 @@ const HomePage = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="bg-gray-100 py-16" ref={signupRef}>
-        <div className="container mx-auto text-center">
-          <h2 className="text-2xl font-bold mb-4">Get Started</h2>
-          <p className="mb-6">
-            Ready to start capturing your memories? Sign up today and join a
-            community of creators and storytellers.
-          </p>
-          <Link to="/sign-up">
-            <button className="bg-purple-500 text-white py-2 px-4 rounded">
-              Sign Up
-            </button>
-          </Link>
-        </div>
-      </section>
+      {!user.currentUser && (
+        <section className="bg-gray-100 py-16" ref={signupRef}>
+          <div className="container mx-auto text-center">
+            <h2 className="text-2xl font-bold mb-4">Get Started</h2>
+            <p className="mb-6">
+              Ready to start capturing your memories? Sign up today and join a
+              community of creators and storytellers.
+            </p>
+            <Link to="/sign-up">
+              <button className="bg-purple-500 text-white py-2 px-4 rounded">
+                Sign Up
+              </button>
+            </Link>
+          </div>
+        </section>
+      )}
 
       <div className="max-w-6xl mx-auto p-3 flex flex-col gap-4 py-4">
         {posts && posts.length > 0 && (
