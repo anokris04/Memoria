@@ -14,13 +14,23 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await fetch(`/api/user/${comment.userId}`);
-        const data = await res.json();
-        if (res.ok) {
-          setUser(data);
+        if (!comment.userId) {
+          setUser({ username: "@anonymous" });
+          return;
         }
+        const res = await fetch(`/api/user/${comment.userId}`);
+        if (res.status === 404) {
+          // User not found, set to "deleted user"
+          setUser({ username: "deleted_user", profilePicture: "" });
+          return;
+        }
+        if (!res.ok) {
+          throw new Error(`Failed to fetch user data: ${res.status}`);
+        }
+        const data = await res.json();
+        setUser(data);
       } catch (error) {
-        console.log(error.message);
+        console.error('Error fetching user data:', error);
       }
     };
     getUser();
